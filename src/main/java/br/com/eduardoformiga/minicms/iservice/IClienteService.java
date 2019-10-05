@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IClienteService {
 	Cliente findOne(Long  id);
+	Cliente findOneByNome(String name);
 	List<Cliente> findAll();
 	Cliente create(Cliente cliente);
 	Cliente update(Long id, Cliente cliente);

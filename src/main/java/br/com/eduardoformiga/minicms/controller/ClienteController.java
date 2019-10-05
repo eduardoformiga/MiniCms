@@ -41,6 +41,12 @@ public class ClienteController {
 
 		return cliente != null ? ResponseEntity.ok().body(cliente) : ResponseEntity.notFound().build();
 	}
+	@GetMapping(value = "/name/{name}")
+	public ResponseEntity<?> findOneByNome(@PathVariable String name) {
+		Cliente cliente = clienteService.findOneByNome(name);
+
+		return cliente != null ? ResponseEntity.ok().body(cliente) : ResponseEntity.notFound().build();
+	}
 
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody Cliente cliente, HttpServletResponse response) {

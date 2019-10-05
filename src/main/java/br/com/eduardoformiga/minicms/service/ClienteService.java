@@ -32,6 +32,17 @@ public class ClienteService implements IClienteService {
 	}
 
 	@Override
+	public Cliente findOneByNome(String name) {
+		Cliente savedCliente = clienteRepository.findOneByNomeContainingIgnoreCase(name);
+
+		if (savedCliente == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+
+		return savedCliente;
+	}
+
+	@Override
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
