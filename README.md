@@ -29,7 +29,7 @@ For building and running the application you need:
 - [Maven 3](https://maven.apache.org)
 
 ### Build an executable JAR
-Bbuild a single executable JAR file that contains all the necessary dependencies, classes, and resources with:
+Build a single executable JAR file that contains all the necessary dependencies, classes, and resources with:
 ```
 mvn clean package
 ```
