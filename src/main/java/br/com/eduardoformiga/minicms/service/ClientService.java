@@ -2,7 +2,7 @@ package br.com.eduardoformiga.minicms.service;
 
 import br.com.eduardoformiga.minicms.iservice.IClientService;
 import br.com.eduardoformiga.minicms.model.Client;
-import br.com.eduardoformiga.minicms.repository.ClienteRepository;
+import br.com.eduardoformiga.minicms.repository.ClientRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,16 +13,16 @@ import java.util.List;
 
 @Service
 public class ClientService implements IClientService {
-	private ClienteRepository clienteRepository;
+	private ClientRepository clientRepository;
 
 	@Autowired
-	public ClientService(ClienteRepository clienteRepository) {
-		this.clienteRepository = clienteRepository;
+	public ClientService(ClientRepository clientRepository) {
+		this.clientRepository = clientRepository;
 	}
 
 	@Override
 	public Client findOne(Long id) {
-		Client savedClient = clienteRepository.findOne(id);
+		Client savedClient = clientRepository.findOne(id);
 
 		if (savedClient == null) {
 			throw new EmptyResultDataAccessException(1);
@@ -33,7 +33,7 @@ public class ClientService implements IClientService {
 
 	@Override
 	public Client findOneByName(String name) {
-		Client savedClient = clienteRepository.findOneByNameContainingIgnoreCase(name);
+		Client savedClient = clientRepository.findOneByNameContainingIgnoreCase(name);
 
 		if (savedClient == null) {
 			throw new EmptyResultDataAccessException(1);
@@ -44,13 +44,13 @@ public class ClientService implements IClientService {
 
 	@Override
 	public List<Client> findAll() {
-		return clienteRepository.findAll();
+		return clientRepository.findAll();
 	}
 
 	@Override
 	@Transactional
 	public Client create(Client client) {
-		return clienteRepository.save(client);
+		return clientRepository.save(client);
 	}
 
 	@Override
@@ -59,12 +59,12 @@ public class ClientService implements IClientService {
 		Client savedClient = findOne(id);
 		BeanUtils.copyProperties(client, savedClient, "id");
 
-		return clienteRepository.save(savedClient);
+		return clientRepository.save(savedClient);
 	}
 
 	@Override
 	public void delete(Long id) {
-		clienteRepository.delete(id);
+		clientRepository.delete(id);
 	}
 
 }
