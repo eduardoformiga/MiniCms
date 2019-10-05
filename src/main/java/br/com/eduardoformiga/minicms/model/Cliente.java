@@ -1,6 +1,7 @@
 package br.com.eduardoformiga.minicms.model;
 
 import br.com.eduardoformiga.minicms.util.DateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class Cliente {
     @Column
     private Sexo sexo;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
