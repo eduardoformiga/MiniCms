@@ -5,8 +5,9 @@ import java.time.Period;
 
 public class DateUtils {
 
-    public static int calculaIdade(LocalDate birthDate, LocalDate currentDate) {
-        return (birthDate != null && currentDate != null)
+    public static Integer calculaIdade(LocalDate birthDate) {
+        LocalDate currentDate = LocalDate.now();
+        return (birthDate != null)
                 ? Period.between(birthDate, currentDate).getYears()
                 : null;
     }

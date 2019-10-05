@@ -11,5 +11,5 @@ insert into cidade values(null, 'Goiânia')
 insert into cidade values(null, 'Brasília')
 insert into cidade values(null, 'Maceió')
 
-insert into cliente (id, nome, sexo, data_nascimento, cidade_id) values (null, 'Maria da Silva', 0, null, 1)
+insert into cliente (id, nome, sexo, data_nascimento, cidade_id) values (null, 'Maria da Silva', 0, 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770703000007c6010178', 1)
 insert into cliente (id, nome, sexo, data_nascimento, cidade_id) values (null, 'João de Souza', 1, null, 2)

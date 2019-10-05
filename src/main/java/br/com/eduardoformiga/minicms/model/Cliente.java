@@ -1,5 +1,6 @@
 package br.com.eduardoformiga.minicms.model;
 
+import br.com.eduardoformiga.minicms.util.DateUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -71,8 +72,7 @@ public class Cliente {
     }
 
     public Integer getIdade() {
-        //return DateUtils.calculaIdade(dataNascimento, LocalDate.now());
-        return idade;
+        return DateUtils.calculaIdade(dataNascimento);
     }
 
     public void setIdade(Integer idade) {
