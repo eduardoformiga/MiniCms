@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -41,6 +40,7 @@ public class ClientController {
 
 		return client != null ? ResponseEntity.ok().body(client) : ResponseEntity.notFound().build();
 	}
+
 	@GetMapping(value = "/name/{name}")
 	public ResponseEntity<?> findOneByName(@PathVariable String name) {
 		Client client = clientService.findOneByName(name);
@@ -49,13 +49,13 @@ public class ClientController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Client client, HttpServletResponse response) {
+	public ResponseEntity<?> create(@RequestBody Client client) {
 		Client savedClient = clientService.create(client);
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
 	}
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Client client, HttpServletResponse response) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Client client) {
         Client savedClient = clientService.update(id, client);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
     }

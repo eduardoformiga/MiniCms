@@ -43,6 +43,17 @@ public class CityService implements ICityService {
 	}
 
 	@Override
+	public List<City> findByStateName(String stateName) {
+        List<City> cities = cityRepository.findByStateNameIgnoreCase(stateName);
+
+		if (cities.isEmpty()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+
+		return cities;
+	}
+
+	@Override
 	public List<City> findAll() {
 		return cityRepository.findAll();
 	}

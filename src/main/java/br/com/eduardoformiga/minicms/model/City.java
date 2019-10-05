@@ -1,5 +1,7 @@
 package br.com.eduardoformiga.minicms.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
@@ -14,13 +16,16 @@ public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonInclude(Include.NON_NULL)
     private Long id;
 
     @NotBlank
+    @JsonInclude(Include.NON_NULL)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "state_id")
+    @JsonInclude(Include.NON_NULL)
     private State state;
 
     public Long getId() {

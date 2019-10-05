@@ -8,6 +8,7 @@ import java.util.List;
 public interface ICityService {
 	City findOne(Long id);
 	City findOneByName(String name);
+	List<City> findByStateName(String stateName);
 	List<City> findAll();
 	City create(City client);
 	City update(Long id, City client);

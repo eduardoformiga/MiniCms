@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,14 +49,21 @@ public class CityController {
 		return city != null ? ResponseEntity.ok().body(city) : ResponseEntity.notFound().build();
 	}
 
+    @GetMapping(value = "/state/{name}")
+    public ResponseEntity<?> findByStateName(@PathVariable String name) {
+        List<City> city = cityService.findByStateName(name);
+
+        return city != null ? ResponseEntity.ok().body(city) : ResponseEntity.notFound().build();
+    }
+
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody City city, HttpServletResponse response) {
+	public ResponseEntity<?> create(@Valid @RequestBody City city) {
 		City savedCity = cityService.create(city);
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedCity);
 	}
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody City city, HttpServletResponse response) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody City city) {
         City savedCity = cityService.update(id, city);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCity);
     }
