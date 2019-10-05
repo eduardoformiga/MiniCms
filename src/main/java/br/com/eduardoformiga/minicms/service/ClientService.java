@@ -1,11 +1,11 @@
 package br.com.eduardoformiga.minicms.service;
 
+import br.com.eduardoformiga.minicms.exceptionHandler.ClientNotFoundException;
 import br.com.eduardoformiga.minicms.iservice.IClientService;
 import br.com.eduardoformiga.minicms.model.Client;
 import br.com.eduardoformiga.minicms.repository.ClientRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,25 +21,25 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
-	public Client findOne(Long id) {
+	public Client findOne(Long id) throws ClientNotFoundException {
 		Client savedClient = clientRepository.findOne(id);
 
 		if (savedClient == null) {
-			throw new EmptyResultDataAccessException(1);
+            throw new ClientNotFoundException("Client not found");
 		}
 
 		return savedClient;
 	}
 
 	@Override
-	public Client findOneByName(String name) {
-		Client savedClient = clientRepository.findOneByNameContainingIgnoreCase(name);
+	public List<Client> findByName(String name) throws ClientNotFoundException {
+		List<Client> clients = clientRepository.findByNameContainingIgnoreCase(name);
 
-		if (savedClient == null) {
-			throw new EmptyResultDataAccessException(1);
+		if (clients.isEmpty()) {
+			throw new ClientNotFoundException("Client not found");
 		}
 
-		return savedClient;
+		return clients;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ClientService implements IClientService {
 
 	@Override
 	@Transactional
-	public Client update(Long id, Client client) {
+	public Client update(Long id, Client client) throws ClientNotFoundException {
 		Client savedClient = findOne(id);
 		BeanUtils.copyProperties(client, savedClient, "id");
 
@@ -64,7 +64,7 @@ public class ClientService implements IClientService {
 
 	@Override
 	public void delete(Long id) {
-		clientRepository.delete(id);
+        clientRepository.delete(id);
 	}
 
 }

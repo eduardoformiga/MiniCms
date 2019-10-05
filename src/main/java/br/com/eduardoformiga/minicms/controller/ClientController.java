@@ -1,5 +1,6 @@
 package br.com.eduardoformiga.minicms.controller;
 
+import br.com.eduardoformiga.minicms.exceptionHandler.ClientNotFoundException;
 import br.com.eduardoformiga.minicms.iservice.IClientService;
 import br.com.eduardoformiga.minicms.model.Client;
 import br.com.eduardoformiga.minicms.util.Constants;
@@ -35,17 +36,17 @@ public class ClientController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> findOne(@PathVariable Long id) {
+	public ResponseEntity<?> findOne(@PathVariable Long id) throws ClientNotFoundException {
 		Client client = clientService.findOne(id);
 
 		return client != null ? ResponseEntity.ok().body(client) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping(value = "/name/{name}")
-	public ResponseEntity<?> findOneByName(@PathVariable String name) {
-		Client client = clientService.findOneByName(name);
+	public ResponseEntity<?> findByName(@PathVariable String name) throws ClientNotFoundException {
+        List<Client> clients = clientService.findByName(name);
 
-		return client != null ? ResponseEntity.ok().body(client) : ResponseEntity.notFound().build();
+		return !clients.isEmpty() ? ResponseEntity.ok().body(clients) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
@@ -55,7 +56,7 @@ public class ClientController {
 	}
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Client client) throws ClientNotFoundException {
         Client savedClient = clientService.update(id, client);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
     }

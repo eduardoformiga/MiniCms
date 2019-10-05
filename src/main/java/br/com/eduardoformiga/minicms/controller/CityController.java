@@ -1,5 +1,6 @@
 package br.com.eduardoformiga.minicms.controller;
 
+import br.com.eduardoformiga.minicms.exceptionHandler.CityNotFoundException;
 import br.com.eduardoformiga.minicms.iservice.ICityService;
 import br.com.eduardoformiga.minicms.model.City;
 import br.com.eduardoformiga.minicms.util.Constants;
@@ -36,24 +37,24 @@ public class CityController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> findOne(@PathVariable Long id) {
+	public ResponseEntity<?> findOne(@PathVariable Long id) throws CityNotFoundException {
 		City city = cityService.findOne(id);
 
 		return city != null ? ResponseEntity.ok().body(city) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping(value = "/name/{name}")
-	public ResponseEntity<?> findOneByName(@PathVariable String name) {
-		City city = cityService.findOneByName(name);
+	public ResponseEntity<?> findByName(@PathVariable String name) throws CityNotFoundException {
+        List<City> cities = cityService.findByName(name);
 
-		return city != null ? ResponseEntity.ok().body(city) : ResponseEntity.notFound().build();
+		return !cities.isEmpty() ? ResponseEntity.ok().body(cities) : ResponseEntity.notFound().build();
 	}
 
     @GetMapping(value = "/state/{name}")
-    public ResponseEntity<?> findByStateName(@PathVariable String name) {
-        List<City> city = cityService.findByStateName(name);
+    public ResponseEntity<?> findByStateName(@PathVariable String name) throws CityNotFoundException {
+        List<City> cities = cityService.findByStateName(name);
 
-        return city != null ? ResponseEntity.ok().body(city) : ResponseEntity.notFound().build();
+        return !cities.isEmpty() ? ResponseEntity.ok().body(cities) : ResponseEntity.notFound().build();
     }
 
 	@PostMapping
@@ -63,7 +64,7 @@ public class CityController {
 	}
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody City city) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody City city) throws CityNotFoundException {
         City savedCity = cityService.update(id, city);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCity);
     }

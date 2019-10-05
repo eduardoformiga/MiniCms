@@ -1,11 +1,11 @@
 package br.com.eduardoformiga.minicms.service;
 
+import br.com.eduardoformiga.minicms.exceptionHandler.CityNotFoundException;
 import br.com.eduardoformiga.minicms.iservice.ICityService;
 import br.com.eduardoformiga.minicms.model.City;
 import br.com.eduardoformiga.minicms.repository.CityRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,33 +21,33 @@ public class CityService implements ICityService {
 	}
 
 	@Override
-	public City findOne(Long id) {
+	public City findOne(Long id) throws CityNotFoundException {
 		City savedCity = cityRepository.findOne(id);
 
 		if (savedCity == null) {
-			throw new EmptyResultDataAccessException(1);
+            throw new CityNotFoundException("City not found");
 		}
 
 		return savedCity;
 	}
 
 	@Override
-	public City findOneByName(String name) {
-		City savedCity = cityRepository.findOneByNameContainingIgnoreCase(name);
+	public List<City> findByName(String name) throws CityNotFoundException {
+        List<City> cities = cityRepository.findOneByNameContainingIgnoreCase(name);
 
-		if (savedCity == null) {
-			throw new EmptyResultDataAccessException(1);
+		if (cities.isEmpty()) {
+            throw new CityNotFoundException("City not found");
 		}
 
-		return savedCity;
+		return cities;
 	}
 
 	@Override
-	public List<City> findByStateName(String stateName) {
+	public List<City> findByStateName(String stateName) throws CityNotFoundException {
         List<City> cities = cityRepository.findByStateNameIgnoreCase(stateName);
 
 		if (cities.isEmpty()) {
-			throw new EmptyResultDataAccessException(1);
+			throw new CityNotFoundException("City not found");
 		}
 
 		return cities;
@@ -61,12 +61,12 @@ public class CityService implements ICityService {
 	@Override
 	@Transactional
 	public City create(City city) {
-		return cityRepository.save(city);
+	    return cityRepository.save(city);
 	}
 
 	@Override
 	@Transactional
-	public City update(Long id, City city) {
+	public City update(Long id, City city) throws CityNotFoundException {
 		City savedCity = findOne(id);
 		BeanUtils.copyProperties(city, savedCity, "id");
 
