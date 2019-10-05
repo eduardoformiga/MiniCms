@@ -1,6 +1,6 @@
 package br.com.eduardoformiga.minicms.model;
 
-public enum Sexo {
+public enum Gender {
 
 	FEMININO(0, "Feminino"),
 	MASCULINO(1, "Masculino");
@@ -8,7 +8,7 @@ public enum Sexo {
 	private Integer codigo;
 	private String descricao;
 
-	private Sexo(Integer codigo, String descricao) {
+	Gender(Integer codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}

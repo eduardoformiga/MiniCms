@@ -1,6 +1,6 @@
 package br.com.eduardoformiga.minicms.model;
 
-public enum Estado {
+public enum State {
     RO(11, "Rondônia"),
     AC(12, "Acre"),
     AM(13, "Amazonas"),
@@ -29,23 +29,23 @@ public enum Estado {
     GO(52, "Goiás"),
     DF(53, "Distrito Federal");
 
-    private final int codigoIbge;
-    private final String nome;
+    private final int ibgeCode;
+    private final String name;
 
-    private Estado(int codigoIbge, String nome) {
-        this.codigoIbge = codigoIbge;
-        this.nome = nome;
+    State(int ibgeCode, String name) {
+        this.ibgeCode = ibgeCode;
+        this.name = name;
     }
 
     public String getCodigo() {
-        return Integer.toString(codigoIbge);
+        return Integer.toString(ibgeCode);
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public int getCodigoIbge() {
-        return codigoIbge;
+    public int getIbgeCode() {
+        return ibgeCode;
     }
 }

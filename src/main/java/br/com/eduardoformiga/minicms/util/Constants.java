@@ -1,10 +1,9 @@
 package br.com.eduardoformiga.minicms.util;
 
-public class Constantes {
+public class Constants {
 	
-	private Constantes() {
+	private Constants() {
 	}
 	
 	public static final String URL_PREFIX = "/api";
-	public static final String URL_PUBLIC = "/public";
 }
