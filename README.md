@@ -4,9 +4,7 @@ MiniCms api utilizando o banco de dados in memory H2.
 As operações podem ser testadas via collection do postman que se encontra na pasta docs/
 
 
-## Requisitos da entrega
-
-Operações expostas como endpoints REST para:
+## API
 
 * Cadastrar cidade
 * Cadastrar cliente
@@ -16,10 +14,6 @@ Operações expostas como endpoints REST para:
 * Consultar cliente pelo Id
 * Remover cliente
 * Alterar o nome do cliente
-
-Considere o cadastro com dados básicos: 
-* Cidades: nome e estado
-* Cliente: nome completo, sexo, data de nascimento, idade e cidade onde mora.
 
 ## Requisitos
 
